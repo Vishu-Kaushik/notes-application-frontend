@@ -3,22 +3,20 @@ import { Link } from "react-router-dom";
 import logo from "../images/logo.jpg";
 import { LuFileSearch2 } from "react-icons/lu";
 import { FaFileUpload } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   return (
     <>
-      <header className="flex h-20 items-center justify-center border border-black">
-        <div className="flex w-full max-w-[1550px] items-center justify-between border border-green-500 lg:mx-5">
+      <header className="flex h-[80px] items-center justify-center border border-black">
+        <div className="mx-5 flex w-full max-w-[1550px] items-center justify-between">
           {/* image */}
-          <div className="flex h-[76px] w-24 items-center overflow-hidden border border-red-300">
-            <img
-              src={logo}
-              alt="logo"
-              className="mb-2 ml-2 mt-2 h-16 rounded-2xl"
-            />
+          <div className="flex h-[72px] w-24 items-center overflow-hidden">
+            <img src={logo} alt="logo" className="mx-1 my-1 h-16 rounded-2xl" />
           </div>
           {/* Links */}
-          <div className="flex items-center justify-center gap-5">
+          <GiHamburgerMenu className="text-xl md:hidden" />
+          <div className="hidden md:flex md:items-center md:justify-center md:gap-5">
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
             {/* <Link to="/login">
