@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="flex items-center justify-center p-12">
       {/* About Us , Quick Links , Contact */}
-      <div className="flex h-full w-full flex-col gap-10 lg:flex-row lg:justify-center">
+      <div className="flex h-full w-full flex-col gap-10 px-20 lg:flex-row lg:justify-between">
         {/* About Us */}
         <div className="lg: w-[450px]">
           <h2 className="relative mb-3 text-2xl font-black before:absolute before:top-[30px] before:h-[3px] before:w-[75px] before:bg-blue-400">

@@ -8,7 +8,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   return (
     <>
-      <header className="flex h-[80px] items-center justify-center border border-black">
+      <header className="flex h-[80px] items-center justify-center shadow-lg">
         <div className="mx-5 flex w-full max-w-[1550px] items-center justify-between">
           {/* image */}
           <div className="flex h-[72px] w-24 items-center overflow-hidden">
