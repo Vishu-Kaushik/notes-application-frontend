@@ -7,6 +7,8 @@ import AboutUs from "./pages/AboutUs";
 import Upload from "./pages/Upload";
 import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const App = () => {
   return (
@@ -18,8 +20,8 @@ const App = () => {
           <Route exact path="/faq" element={<Faq></Faq>} />
           <Route exact path="/about" element={<AboutUs></AboutUs>} />
           <Route exact path="/profile" element={<Profile></Profile>} />
-          {/* <Route exact path="/login" element={<Login></Login>} /> */}
-          {/* <Route exact path="/signup" element={<Signup></Signup>} /> */}
+          <Route exact path="/login" element={<Login></Login>} />
+          <Route exact path="/signup" element={<Signup></Signup>} />
           <Route exact path="/upload" element={<Upload></Upload>} />
           <Route exact path="/search" element={<Search></Search>} />
         </Routes>
