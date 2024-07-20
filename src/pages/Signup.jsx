@@ -1,41 +1,92 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [profilePreviewImage, setProfilePreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userMobile, setUserMobile] = useState("");
+  const [userBio, setUserBio] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("userMobile", userMobile);
+      formData.append("userBio", userBio);
+      formData.append("userEmail", userEmail);
+      formData.append("userName", userName);
+      formData.append("userPassword", userPassword);
+      formData.append("profileImage", profileImage);
+
+      const result = await axios.post(
+        "http://localhost:4000/auth/signup",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      console.log("Data: ", result);
+      alert("User has been successfully registered");
+    } catch (error) {
+      alert("Failed to register user ");
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex h-auto w-full items-center justify-center p-5">
-      <div className="flex h-full w-full max-w-[450px] flex-col gap-3 bg-white p-5">
+      <form
+        className="flex h-full w-full max-w-[450px] flex-col gap-3 bg-white p-5"
+        onSubmit={registerUser}
+      >
         <h1 className="relative text-center text-3xl font-bold">
           Register
           <span className="absolute left-[138px] top-[38px] h-1 w-32 rounded-full bg-blue-300"></span>
         </h1>
         <div className="mt-1 flex items-start justify-center gap-4">
           <div className="flex flex-col items-start justify-center">
-            <label className="font-medium">First Name</label>
+            <label className="font-medium" htmlFor="firstName">
+              First Name
+            </label>
             <input
               type="text"
-              name=""
-              id=""
+              name="firstName"
+              id="firstName"
               placeholder="Vishu"
               className="w-full rounded-lg border border-gray-200 p-2 focus:border-blue-400 focus:outline-none"
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="flex flex-col items-start justify-center">
-            <label className="font-medium">Last Name</label>
+            <label htmlFor="lastName" className="font-medium">
+              Last Name
+            </label>
             <input
               type="text"
-              name=""
-              id=""
+              name="lastName"
+              id="lastName"
               placeholder="Kaushik"
               className="w-full rounded-lg border border-gray-200 p-2 focus:border-blue-400 focus:outline-none"
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
         </div>
         <div className="flex flex-col items-start justify-center">
-          <label className="font-medium">Your Bio</label>
+          <label className="font-medium" htmlFor="userBio">
+            {" "}
+            Bio
+          </label>
           <textarea
             name="userBio"
             id="userBio"
@@ -43,47 +94,59 @@ const Signup = () => {
             className="mt-1 w-full rounded-md border p-2 focus:border-blue-500 focus:outline-none"
             placeholder="Tell us something about yourself"
             required
-            // onChange
+            onChange={(e) => setUserBio(e.target.value)}
           ></textarea>
         </div>
         <div className="flex flex-col items-start justify-center">
-          <label className="font-medium">Email</label>
+          <label className="font-medium" htmlFor="userEmail">
+            Email
+          </label>
           <input
             type="email"
-            name=""
-            id=""
+            name="userEmail"
+            id="userEmail"
             placeholder="Enter Your Email"
             className="w-full rounded-lg border border-gray-200 p-2 focus:border-blue-400 focus:outline-none"
+            onChange={(e) => setUserEmail(e.target.value)}
           />
         </div>
         <div className="flex flex-col items-start justify-center">
-          <label className="font-medium">Mobile No.</label>
+          <label className="font-medium" htmlFor="userMobile">
+            Mobile No.
+          </label>
           <input
             type="number"
             name=""
             id=""
             placeholder="Enter Your 10 digit mobile no."
             className="w-full rounded-lg border border-gray-200 p-2 focus:border-blue-400 focus:outline-none"
+            onChange={(e) => setUserMobile(e.target.value)}
           />
         </div>
         <div className="flex flex-col items-start justify-center">
-          <label className="font-medium">User Name</label>
+          <label className="font-medium" htmlFor="userName">
+            User Name
+          </label>
           <input
             type="text"
-            name=""
-            id=""
+            name="userName"
+            id="userName"
             placeholder="Enter Your User Name"
             className="w-full rounded-lg border border-gray-200 p-2 focus:border-blue-400 focus:outline-none"
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className="flex flex-col items-start justify-center">
-          <label className="font-medium">Password</label>
+          <label className="font-medium" htmlFor="userPassword">
+            Password
+          </label>
           <input
             type="password"
-            name=""
-            id=""
+            name="userPassword"
+            id="userPassword"
             placeholder="Enter Your Password"
             className="w-full rounded-lg border border-gray-200 p-2 focus:border-blue-400 focus:outline-none"
+            onChange={(e) => setUserPassword(e.target.value)}
           />
         </div>
         <div className="flex w-full flex-col items-center justify-center">
@@ -146,7 +209,7 @@ const Signup = () => {
             Login
           </Link>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
