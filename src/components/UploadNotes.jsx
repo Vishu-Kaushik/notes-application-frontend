@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const UploadNotes = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [tags, setTags] = useState("");
+  const [file, setFile] = useState("");
+  const user = useSelector((state) => state.user.userData);
+  const userId = user._id;
+  console.log(userId);
+  const submitFile = async (e) => {
+    e.preventDefault();
+    try {
+      // const  formData = new FormData();
+      // formData.append("title", title);
+      // formData.append("description", description);
+      // formData.append("tags", tags);
+      // formData.append("file", file);
+      // formData.append("userId", userId);
+      const formData = {
+        title: title,
+        description: description,
+        tags: tags,
+        file: file,
+        userId: userId,
+      };
+      console.log(formData);
+      
+      const result = await axios.post(
+        "http://localhost:4000/notes/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+      console.log("Data : ", result);
+      alert("Notes Uploaded successfully");
+    } catch (error) {
+      console.log("Failed to upload files: ", error);
+    }
+  };
   return (
-    <div className="mt-4 flex h-full w-full max-w-[770px] flex-col items-center justify-start p-5 md:border md:border-gray-300 lg:justify-center">
+    <form
+      className="mt-4 flex h-full w-full max-w-[770px] flex-col items-center justify-start p-5 md:border md:border-gray-300 lg:justify-center"
+      onSubmit={submitFile}
+    >
       <h1 className="mb-5 text-2xl font-black text-blue-600">
         Upload Your Notes
       </h1>
@@ -11,7 +56,7 @@ const UploadNotes = () => {
           type="text"
           placeholder="Title"
           required
-          // onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
         />
       </div>
@@ -21,7 +66,7 @@ const UploadNotes = () => {
           type="text"
           placeholder="Description"
           required
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
         />
       </div>
@@ -30,7 +75,7 @@ const UploadNotes = () => {
           type="text"
           placeholder="Tags"
           required
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setTags(e.target.value)}
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
         />
       </div>
@@ -73,12 +118,12 @@ const UploadNotes = () => {
         </label>
       </div>
       <button
-        type="button"
-        class="mt-6 w-full max-w-[300px] items-center rounded-lg bg-blue-700 py-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="submit"
+        className="mt-6 w-full max-w-[300px] items-center rounded-lg bg-blue-700 py-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         Submit Here
       </button>
-    </div>
+    </form>
   );
 };
 

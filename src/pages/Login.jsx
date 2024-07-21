@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { setUserData } from "../Redux/slices/user-slice";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginUser = async (e) => {
     try {
@@ -14,6 +21,9 @@ const Login = () => {
 
       const result = await axios.post("http://localhost:4000/auth/login", user);
       console.log("User Logged in successfully", result);
+
+      dispatch(setUserData(result.data));
+      navigate("/");
     } catch (error) {
       console.log("Cannot Login", error);
     }
@@ -56,14 +66,16 @@ const Login = () => {
           </div>
         </div>
         <button
-          type="button"
+          type="submit"
           className="m-2 inline-flex items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Log In
         </button>
         <div className="flex items-center justify-between p-2 text-lg">
           <p>New to Find Notes?</p>
-          <p className="font-bold">Create an Account</p>
+          <Link to="/signup">
+            <p className="font-bold">Create an Account</p>
+          </Link>
         </div>
       </form>
     </div>
